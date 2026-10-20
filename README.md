@@ -50,10 +50,13 @@ r = interrupt.predict(said="Your flight from Mumbai to Delhi is",   # what the c
                       unsaid="on the seventeenth of October.",      # the rest of the agent's sentence
                       caller="mm hmm")                               # what the caller said
 r.label, r.keep_talking        # ('BACKCHANNEL', True)
+r.p_stop                       # 0.002: probability of "stop and listen"
+r.probs                        # {'BACKCHANNEL': 0.998, 'ACK_AFTER_QUESTION': ..., ...} all 10 labels
 
 handoff = FennecHandoff()
-handoff.predict("I want to fly from Mumbai to um").finished   # False: wait for more
-handoff.predict("Delhi, one way for two people.").finished    # True: reply
+h = handoff.predict("I want to fly from Mumbai to um")
+h.finished, h.p_unfinished     # (False, 0.99): wait for more
+handoff.predict("Delhi, one way for two people.")   # HandoffResult(finished=True, p_unfinished=0.011): reply
 ```
 
 - `said` / `unsaid`: split the agent's sentence at the word playing when the caller started speaking (TTS word timestamps + playback position).
