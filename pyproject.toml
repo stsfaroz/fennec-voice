@@ -1,0 +1,48 @@
+[build-system]
+requires = ["hatchling>=1.24"]
+build-backend = "hatchling.build"
+
+[project]
+name = "fennec-voice"
+dynamic = ["version"]
+description = "Small turn-taking models for voice agents: nod or interruption, finished or not."
+readme = "README.md"
+license = "Apache-2.0"
+license-files = ["LICENSE", "NOTICE"]
+authors = [{ name = "Salman Faroz", email = "stsfaroz@gmail.com" }]
+requires-python = ">=3.10"
+dependencies = [
+    "torch>=2.1",
+    "transformers>=4.56",
+    "huggingface_hub>=0.23",
+]
+keywords = ["voice agent", "turn-taking", "barge-in", "backchannel", "end-of-turn", "conversational ai"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent",
+    "Intended Audience :: Developers",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Topic :: Multimedia :: Sound/Audio :: Speech",
+]
+
+[project.optional-dependencies]
+test = ["pytest>=7"]
+
+[project.urls]
+Homepage = "https://github.com/stsfaroz/fennec-voice"
+Demo = "https://github.com/stsfaroz/fennec-voice-demo"
+"fennec-interrupt" = "https://huggingface.co/SalmanFaroz/fennec-interrupt-150m-v1"
+"fennec-handoff" = "https://huggingface.co/SalmanFaroz/fennec-handoff-150m-v1"
+Changelog = "https://github.com/stsfaroz/fennec-voice/blob/main/CHANGELOG.md"
+
+[tool.hatch.version]
+path = "src/fennec_voice/__init__.py"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/fennec_voice"]
+
+[tool.hatch.build.targets.sdist]
+include = ["src", "tests", "README.md", "CHANGELOG.md", "LICENSE", "NOTICE"]
+
+[tool.pytest.ini_options]
+markers = ["models: downloads the Fennec models from Hugging Face (slow)"]
