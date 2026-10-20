@@ -37,16 +37,18 @@ The GPU is used automatically when available.
 from fennec_voice import FennecInterrupt, FennecHandoff
 
 interrupt = FennecInterrupt()
-print(interrupt.predict(
+result = interrupt.predict(
     said="Your flight from Mumbai to Delhi is",
     unsaid="on the seventeenth of October.",
     caller="mm hmm",
-))
-# InterruptResult(label='BACKCHANNEL', keep_talking=True, p_stop=0.002, probs={...})
+)
+print(result.label, result.p_stop)
+# BACKCHANNEL 0.002
 
 handoff = FennecHandoff()
-print(handoff.predict("I want to fly from Mumbai to um"))
-# HandoffResult(finished=False, p_unfinished=0.99)
+result = handoff.predict("I want to fly from Mumbai to um")
+print(result.finished, result.p_unfinished)
+# False 0.99
 ```
 
 - `said`: the agent's words the caller had heard. `unsaid`: the rest of the agent's sentence. `caller`: what the caller said.
