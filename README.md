@@ -14,29 +14,20 @@
 
 ---
 
-## ✨ What it does
-
-| Model | Moment | Question |
-|---|---|---|
-| **FennecInterrupt** | The agent is talking and the caller makes a sound | Nod (keep talking) or interruption (stop and listen)? |
-| **FennecHandoff** | The agent is quiet and the caller paused | Finished (reply) or not (wait)? |
-
-Two 150M models, ~12 ms per decision on a laptop GPU (~30–60 ms on CPU). English, text in, text out: plug them in after any speech-to-text.
-
----
-
 ## 🚀 Install
 
+**GPU**
 ```bash
 pip install fennec-voice
 ```
 
-The GPU is used when available, otherwise the CPU. For a smaller CPU-only install, get PyTorch's CPU build first:
-
+**CPU only** (smaller download)
 ```bash
 pip install torch --index-url https://download.pytorch.org/whl/cpu
 pip install fennec-voice
 ```
+
+The GPU is used automatically when available.
 
 ---
 
@@ -46,20 +37,19 @@ pip install fennec-voice
 from fennec_voice import FennecInterrupt, FennecHandoff
 
 interrupt = FennecInterrupt()
-r = interrupt.predict(said="Your flight from Mumbai to Delhi is",   # what the caller had heard
-                      unsaid="on the seventeenth of October.",      # the rest of the agent's sentence
-                      caller="mm hmm")                               # what the caller said
-r.label, r.keep_talking        # ('BACKCHANNEL', True)
-r.p_stop                       # 0.002: probability of "stop and listen"
-r.probs                        # {'BACKCHANNEL': 0.998, 'ACK_AFTER_QUESTION': ..., ...} all 10 labels
+print(interrupt.predict(
+    said="Your flight from Mumbai to Delhi is",
+    unsaid="on the seventeenth of October.",
+    caller="mm hmm",
+))
+# InterruptResult(label='BACKCHANNEL', keep_talking=True, p_stop=0.002, probs={...})
 
 handoff = FennecHandoff()
-h = handoff.predict("I want to fly from Mumbai to um")
-h.finished, h.p_unfinished     # (False, 0.99): wait for more
-handoff.predict("Delhi, one way for two people.")   # HandoffResult(finished=True, p_unfinished=0.011): reply
+print(handoff.predict("I want to fly from Mumbai to um"))
+# HandoffResult(finished=False, p_unfinished=0.99)
 ```
 
-- `said` / `unsaid`: split the agent's sentence at the word playing when the caller started speaking (TTS word timestamps + playback position).
+- `said`: the agent's words the caller had heard. `unsaid`: the rest of the agent's sentence. `caller`: what the caller said.
 - `predict_batch([...])` runs many inputs in one pass.
 - Results have `.to_dict()`.
 
