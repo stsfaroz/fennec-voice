@@ -9,6 +9,6 @@ from .interrupt import FennecInterrupt
 from .registry import LATEST, MODELS, ModelInfo, list_models
 from .types import HandoffResult, InterruptResult
 
-__version__ = "0.1.0"
+__version__ = "0.1.1"
 __all__ = ["FennecInterrupt", "FennecHandoff", "InterruptResult", "HandoffResult", "list_models", "MODELS", "LATEST",
            "ModelInfo", "__version__"]

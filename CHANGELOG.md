@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.1.1
+
+- Clearer README (GPU / CPU install, simpler example). No code changes.
+
 ## 0.1.0
 
 - First release: `FennecInterrupt` (fennec-interrupt-150m-v1) and `FennecHandoff` (fennec-handoff-150m-v1).
