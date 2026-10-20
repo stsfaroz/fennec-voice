@@ -4,7 +4,7 @@
 
 <p><b>Small turn-taking models for voice agents: is the caller nodding, interrupting, or done?</b></p>
 
-<a href="https://pypi.org/project/fennec-voice/"><img src="https://img.shields.io/pypi/v/fennec-voice" alt="PyPI"></a>
+<a href="https://pypi.org/project/fennec-voice/"><img src="https://img.shields.io/pypi/v/fennec-voice?label=pypi" alt="PyPI"></a>
 <a href="https://huggingface.co/SalmanFaroz/fennec-interrupt-150m-v1"><img src="https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-fennec--interrupt--150m--v1-yellow" alt="fennec-interrupt"></a>
 <a href="https://huggingface.co/SalmanFaroz/fennec-handoff-150m-v1"><img src="https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-fennec--handoff--150m--v1-yellow" alt="fennec-handoff"></a>
 <a href="https://github.com/stsfaroz/fennec-voice-demo"><img src="https://img.shields.io/badge/%E2%96%B6%20Demo-fennec--voice--demo-red" alt="Demo"></a>
